@@ -84,14 +84,14 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     //renderPointCloud(viewer,inputCloud,"inputCloud");
   
     pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud (new pcl::PointCloud<pcl::PointXYZI>);
-    filterCloud = pc_processorI->FilterCloud(inputCloud, 0.2 , Eigen::Vector4f (-20, -4, -2, 1), Eigen::Vector4f ( 20, 6.5, 5, 1));
+    filterCloud = pc_processorI->FilterCloud(inputCloud, 0.2 , Eigen::Vector4f (-20, -4.5, -2, 1), Eigen::Vector4f ( 20, 7, 5, 1));
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segPC = 
                                                    pc_processorI->SegmentPlane(filterCloud, 200, 0.12);
     //renderPointCloud(viewer,filterCloud,"filterCloud");
     //renderPointCloud(viewer, segPC.first, "obs_pc", Color(1,0,0));
     renderPointCloud(viewer, segPC.second, "plane_pc", Color(0,1,0));
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pc_processorI->Clustering(segPC.first, 0.6, 15, 800);
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pc_processorI->Clustering(segPC.first, 0.6, 10, 800);
     int clusterId = 0;
     std::vector<Color> colors = {Color(1,0,0), Color(1,1,0), Color(0,0,1)};
     for (pcl::PointCloud<pcl::PointXYZI>::Ptr cluster : cloudClusters) {

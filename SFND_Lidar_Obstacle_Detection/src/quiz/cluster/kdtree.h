@@ -55,7 +55,8 @@ struct KdTree
 		int curr_dim = depth % 3;
 		std::vector<float> point = (*node)->point;
 		float d = point[curr_dim] - target[curr_dim];
-		float dist = sqrt((point[0]-target[0])*(point[0]-target[0]) + (point[1]-target[1])*(point[1]-target[1]));
+		float dist = sqrt((point[0]-target[0])*(point[0]-target[0]) + (point[1]-target[1])*(point[1]-target[1])
+		                  + (point[2]-target[2])*(point[2]-target[2]));
 		if (dist < tol) ids.push_back((*node)->id);
 		if (d > 0) {
 			searchHelper(&((*node)->left), depth+1, target, ids, tol);
